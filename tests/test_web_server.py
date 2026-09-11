@@ -1,11 +1,13 @@
 import json
+import os
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 from urllib.request import Request, urlopen
 from threading import Thread
 
 from schemas import PipelineResult, SearchCriteria, to_jsonable
-from web_server import RouteGuardHandler, ThreadingHTTPServer
+from web_server import RouteGuardHandler, ThreadingHTTPServer, serve
 
 
 class WebServerTests(unittest.TestCase):
@@ -33,6 +35,20 @@ class WebServerTests(unittest.TestCase):
             with urlopen(request) as response:
                 payload = json.loads(response.read())
         self.assertEqual(payload["result"]["discovered"], 0)
+
+    def test_azure_deployment_files_exist(self):
+        root = Path(__file__).resolve().parents[1]
+        self.assertTrue((root / "Dockerfile").exists())
+        self.assertTrue((root / "azure.yaml").exists())
+        self.assertTrue((root / "startup.sh").exists())
+
+    def test_serve_defaults_to_public_host_and_environment_port(self):
+        with patch.dict(os.environ, {"PORT": "8080"}, clear=False):
+            with patch("web_server.ThreadingHTTPServer") as mock_server:
+                serve()
+        binding = mock_server.call_args.args[0]
+        self.assertEqual(binding[0], "0.0.0.0")
+        self.assertEqual(binding[1], 8080)
 
 
 if __name__ == "__main__":

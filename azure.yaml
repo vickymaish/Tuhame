@@ -1,0 +1,6 @@
+name: routeguard
+services:
+  web:
+    project: .
+    host: appservice
+    language: python

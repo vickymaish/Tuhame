@@ -1,5 +1,6 @@
 """Small same-origin web server for the Tuhame investigation UI."""
 import json
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -69,7 +70,9 @@ class TuhameHandler(BaseHTTPRequestHandler):
 RouteGuardHandler = TuhameHandler
 
 
-def serve(host: str = "127.0.0.1", port: int = 8000) -> None:
+def serve(host: str = "0.0.0.0", port: int | None = None) -> None:
+    if port is None:
+        port = int(os.environ.get("PORT", "8000"))
     server = ThreadingHTTPServer((host, port), TuhameHandler)
     print(f"Tuhame web app: http://{host}:{port}")
     server.serve_forever()

@@ -1,6 +1,21 @@
-# Tuhame
+# RouteGuard
 
-Tuhame is an autonomous housing and property-investigation pipeline for Nairobi rentals and listing discovery. It searches live listings with Exa, extracts the claims that matter, filters out low-confidence candidates, compares rents, and stores repeatable evidence in SQLite.
+RouteGuard is the rebranded, AI-powered housing and property investigation platform for Nairobi rentals and listing discovery. It searches live listings, extracts the details that matter, filters out low-quality or misleading information, and helps users move from search to decision faster.
+
+This project was previously known as Tuhame.
+
+## Demo
+
+[![Watch the RouteGuard demo](https://img.youtube.com/vi/mqZGPpAE-bI/hqdefault.jpg)](https://www.youtube.com/watch?v=mqZGPpAE-bI)
+
+[Watch the demo video](https://youtu.be/mqZGPpAE-bI)
+
+## Why RouteGuard?
+
+- Finds live rental listings quickly
+- Extracts key details such as rent, location, and amenities
+- Filters weak or mismatched listings
+- Built for Nairobi property discovery and investigation workflows
 
 ## Run
 
@@ -23,7 +38,6 @@ Start the same pipeline through the browser:
 .venv\Scripts\python.exe -m web_server
 ```
 
-Open `http://127.0.0.1:8000`. The web search uses the Tuhame investigation pipeline and requires `EXA_API_KEY` for live source discovery.
+Open `http://127.0.0.1:8000`. The web search uses the RouteGuard investigation pipeline and requires `EXA_API_KEY` for live source discovery.
 
 This repository is configured as the GitHub remote `https://github.com/vickymaish/Tuhame.git` and is intended for production project handoff.
-
